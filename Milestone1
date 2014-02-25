@@ -12,7 +12,7 @@ my_list=[]
 array = []
 helparray = []
 
-Time = float(raw_input("How long dod you want the sound to last in seconds?:"))
+Time = float(raw_input("How long did you want the sound to last in seconds?:"))
 NumChannels = int(raw_input("How many channels? (mono=1 stereo=2):"))
 SampleRate = 22050
 print "Samplerate=" + str(SampleRate)
