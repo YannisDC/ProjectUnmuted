@@ -27,6 +27,8 @@ array = source.readlines()
 AmountOfFreq = len(array)
 
 for i in range(2,AmountOfFreq):
+    # We start at 2 because on the first line are the column headers and we don't need them.
+
     helparray = array[i].split()
 
     helpconv0 = helparray[0]
@@ -36,14 +38,16 @@ for i in range(2,AmountOfFreq):
     convtable = maketrans(inconv, outconv)
     helparray[0]= helpconv0.translate(convtable)
     helparray[1]= helpconv1.translate(convtable)
+    # Audacity exports float with a "," and python read float with a "." so we convert them.
     
     Frequency= float(helparray[0]) 
     List_frequencies.append(float(Frequency))
-    # Er wordt een lijst gemaakt met alle belangerijke frequencies.
+    # A list is made of all frequencies.
+
     Decibel= float(helparray[1])
     relativeAmplitude = pow(10,float(Decibel/20))
     List_volumesIn_dB.append(float(relativeAmplitude))
-    # Bij de lijst worden de bijhorende waarden in relatieve amplitude opgenomen.
+    # Their volume in dB is converted into a relative amplitude and stored in another list.
     
 source.close()
     
@@ -78,35 +82,20 @@ Subchunk1Size = 16
 f.write(pack('<I', Subchunk1Size))
 AudioFormat = 1
 f.write(pack('<H', AudioFormat))
-#NumChannels = 1
+
 f.write(pack('<H', NumChannels))
-#Samplerate = 44100
 f.write(pack('<I', SampleRate))
-
-
-#Byterate = 88200
 f.write(pack('<I', ByteRate))
-#ByteRate         == SampleRate * NumChannels * BitsPerSample/8
-
-#BlockAlign = 2
 f.write(pack('<H', BlockAlign))
-# BlockAlign       == NumChannels * BitsPerSample/8
-
-#BitsPerSample = 16
 f.write(pack('<H', BitsPerSample))
 
 
 data = 1684108385
 f.write(pack('>I', data))
-#Subchunk2Size = 88200
 f.write(pack('<I', Subchunk2Size))
 
 for item in my_list:
     f.write(pack('<h', item))
 
 
-#Subchunk2Size    == NumSamples * NumChannels * BitsPerSample/8
-
 f.close()
-
-#chr()
